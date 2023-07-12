@@ -1,0 +1,114 @@
+//MAINACTIVITY
+package com.example.howtousetoast
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+
+class MainActivity : AppCompatActivity() {
+    //Upon creation of you project we begin by declaring the necessary variables:
+
+    private var mCount = 0 //store count
+    private var mRoll = 1 // roll value
+    private var mShowCount: TextView? = null // textview reference
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        //To assign the reference:
+        mShowCount=findViewById<TextView>(R.id.show_count)
+    }
+
+    //To create and display a toast message when invoked:
+    fun showToast(view: View) {
+        Toast.makeText(this,"Hello Toast!", Toast.LENGTH_SHORT).show()
+    }
+
+  // To implement a count feature on the number of times the button is pressed so show the user:
+  fun countUp(view: View) {
+      mCount++
+      if (mShowCount != null)
+      {
+          mShowCount!!.text = mCount.toString()
+      }
+  }
+
+    //To output the count upon pressing the button:
+    fun rollingDice(view: View) {
+        mRoll = (1..6).random()
+        if (mShowCount != null )
+        {
+            mShowCount!!.text = mRoll.toString()
+        }
+
+
+}
+
+//XML
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:onClick="countUp"
+    tools:context=".MainActivity">
+
+
+    // a text view with show_count as the id so that it can be referenced
+    <TextView
+        android:id="@+id/show_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    // to set the orientation of the layout which I have chosen to be linear:
+    <LinearLayout
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+
+    //To output the toast message a button will be created
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:onClick="showToast"
+        android:text="Toast"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    // a separate button is created to output the count
+    <Button
+        android:id="@+id/button_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="264dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Count"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_count" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
